@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TpoApplication<tpo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "in.nitj.tpo.TpoApplication",
+            "projectName": "tpo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
