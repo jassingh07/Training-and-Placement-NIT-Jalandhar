@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Transformers {
   public static JobOpening toJobOpeningEntity(JobOpeningDto jobOpeningDto){
     return JobOpening.builder()
+    .jobId(jobOpeningDto.getJobId())
         .companyName(jobOpeningDto.getCompanyName())
         .position(jobOpeningDto.getPosition())
         .closingTime(jobOpeningDto.getClosingTime())
