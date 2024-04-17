@@ -21,5 +21,5 @@ public class StudentDto {
   private BigDecimal twelvePercentage;
   private BigDecimal cgpa;
   private boolean activeBacklogs;
-  private List<ResumeDto> resumeDtoList;
+  private List<DocumentDto> resumeDtoList;
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class ResumeDto {
-private String link;
-private String fileName;
+public class DocumentDto {
+    private String link;
+    private String fileName;
 }

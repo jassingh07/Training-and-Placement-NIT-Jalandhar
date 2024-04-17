@@ -24,8 +24,9 @@ public class JobService {
     //first save referenced entity, to take a reference :)
 
     List<JobDocument> jobDocumentList = toJobDocumentEntity(jobOpeningDto.getJobDocumentDtoList(), savedOpening);
-    jobDocumentList.stream()
-        .forEach(document -> jobDocsRepository.save(document));
+    jobDocumentList
+        .forEach(jobDocsRepository::save);
+    
     return savedOpening;
   }
   public List<JobOpening> getValidJobs(){

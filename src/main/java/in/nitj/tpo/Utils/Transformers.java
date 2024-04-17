@@ -1,13 +1,10 @@
 package in.nitj.tpo.Utils;
-
-import in.nitj.tpo.dto.JobDocumentDto;
+import in.nitj.tpo.dto.AnnouncementDto;
+import in.nitj.tpo.dto.DocumentDto;
 import in.nitj.tpo.dto.JobOpeningDto;
-import in.nitj.tpo.dto.ResumeDto;
 import in.nitj.tpo.dto.StudentDto;
-import in.nitj.tpo.entity.JobDocument;
-import in.nitj.tpo.entity.JobOpening;
-import in.nitj.tpo.entity.Resume;
-import in.nitj.tpo.entity.Student;
+import in.nitj.tpo.entity.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +32,7 @@ public class Transformers {
         .phoneNumberWithoutCountryCode(studentDto.getPhoneNumberWithoutCountryCode())
         .build();
   }
-  public static List<Resume> toResumeEntity(List<ResumeDto> resumeDtoList, Student student){
+  public static List<Resume> toResumeEntity(List<DocumentDto> resumeDtoList, Student student){
     return resumeDtoList.stream()
         .map(resume -> Resume.builder()
             .rollNumber(student.getRollNumber())
@@ -45,7 +42,7 @@ public class Transformers {
             .build())
         .collect(Collectors.toList());
   }
-  public static List<JobDocument> toJobDocumentEntity(List<JobDocumentDto> jobDocumentDtoList, JobOpening savedOpening){
+  public static List<JobDocument> toJobDocumentEntity(List<DocumentDto> jobDocumentDtoList, JobOpening savedOpening){
     return jobDocumentDtoList.stream()
         .map(jdl -> JobDocument.builder()
             .jobId(savedOpening.getJobId())
@@ -54,5 +51,22 @@ public class Transformers {
             .jobOpening(savedOpening)
             .build())
         .collect(Collectors.toList());
+  }
+  public static Announcement toAnnoucementEntity(AnnouncementDto announcementDto){
+    return Announcement.builder()
+            .content(announcementDto.getContent())
+            .creationTime(announcementDto.getCreationTime())
+            .build();
+  }
+  public static List<AnnoucementAttachments> toAnnoucementAttachments(List<DocumentDto> annoucementAttachedFilesList, Announcement announcement){
+    return annoucementAttachedFilesList.stream()
+            .map(aafl -> AnnoucementAttachments.builder()
+                    .announcementId(announcement.getAnnouncementId())
+                    .announcement(announcement)
+                    .fileName(aafl.getFileName())
+                    .link(aafl.getLink())
+                    .build()
+            )
+            .collect(Collectors.toList());
   }
 }

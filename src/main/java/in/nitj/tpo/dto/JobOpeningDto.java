@@ -13,6 +13,6 @@ public class JobOpeningDto {
   private Integer jobId;
   private String companyName;
   private String position;
-  private List<JobDocumentDto> jobDocumentDtoList;
+  private List<DocumentDto> jobDocumentDtoList;
   private Instant closingTime;
 }
