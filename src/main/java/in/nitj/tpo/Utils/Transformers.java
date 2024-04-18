@@ -61,7 +61,6 @@ public class Transformers {
   public static List<AnnoucementAttachments> toAnnoucementAttachments(List<DocumentDto> annoucementAttachedFilesList, Announcement announcement){
     return annoucementAttachedFilesList.stream()
             .map(aafl -> AnnoucementAttachments.builder()
-                    .announcementId(announcement.getAnnouncementId())
                     .announcement(announcement)
                     .fileName(aafl.getFileName())
                     .link(aafl.getLink())

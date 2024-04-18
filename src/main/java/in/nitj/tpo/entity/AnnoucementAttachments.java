@@ -12,7 +12,7 @@ import lombok.*;
 public class AnnoucementAttachments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer announcementId;
+    private Integer announcementFileId;
 
     @ManyToOne
     @JoinColumn(name = "announcement_id", nullable = false)
