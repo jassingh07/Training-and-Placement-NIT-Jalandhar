@@ -3,13 +3,17 @@ package in.nitj.tpo.service;
 import static in.nitj.tpo.Utils.Transformers.toJobDocumentEntity;
 import static in.nitj.tpo.Utils.Transformers.toJobOpeningEntity;
 
+import in.nitj.tpo.dto.DocumentDto;
 import in.nitj.tpo.dto.JobOpeningDto;
 import in.nitj.tpo.entity.JobDocument;
 import in.nitj.tpo.entity.JobOpening;
 import in.nitj.tpo.repository.JobDocsRepository;
 import in.nitj.tpo.repository.JobRepository;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +33,26 @@ public class JobService {
     
     return savedOpening;
   }
-  public List<JobOpening> getValidJobs(){
-    return jobRepository.findByClosingTimeGreaterThanEqual(Instant.now());
+  public List<JobOpeningDto> getValidJobs(){
+    return jobRepository.findByClosingTimeGreaterThanEqual(Instant.now())
+            .stream()
+            .map(job -> JobOpeningDto.builder()
+                    .jobId(job.getJobId())
+                    .companyName(job.getCompanyName())
+                    .closingTime(job.getClosingTime())
+                    .position(job.getPosition())
+                    .jobDocumentDtoList(
+                            jobDocsRepository.findAllById(Collections.singletonList(job.getJobId()))
+                            .stream()
+                            .map(doc -> DocumentDto.builder()
+                                    .fileName(doc.getFileName())
+                                    .link(doc.getLink())
+                                    .build()
+                            )
+                            .collect(Collectors.toList())
+                    )
+                    .build()
+            )
+            .collect(Collectors.toList());
   }
 }
