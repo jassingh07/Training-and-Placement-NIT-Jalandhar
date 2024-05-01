@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static in.nitj.tpo.Utils.ControllerConstants.*;
+import static in.nitj.tpo.Utils.RouteConstants.ANNOUNCEMENT;
+import static in.nitj.tpo.Utils.RouteConstants.TPO;
 
 @RestController
 @RequestMapping(TPO)

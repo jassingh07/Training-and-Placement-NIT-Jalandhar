@@ -4,15 +4,14 @@ import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import static in.nitj.tpo.Utils.AuthUtils.NITJ_EMAIL_REGEX;
 
 @Builder
 @AllArgsConstructor
@@ -20,12 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Student {
+public class Student{
   @Id
-private Integer rollNumber;
+  private Integer rollNumber;
   @NotBlank
   private String firstName;
-  @NotBlank
   private String lastName;
   @NotBlank
   private String phoneNumberWithoutCountryCode;
@@ -33,8 +31,9 @@ private Integer rollNumber;
   private String branch;
   @NotBlank
   private String personalEmailId;
-  @NotBlank
+  @Email(regexp = NITJ_EMAIL_REGEX, message = "Not a valid NIT JALANDHAR account")
   private String officialEmailId;
+  private boolean tpoRepresentative;//allow only tpo to write on this
 
   @DecimalMin(value = "0.0")
   @DecimalMax(value = "100.0")

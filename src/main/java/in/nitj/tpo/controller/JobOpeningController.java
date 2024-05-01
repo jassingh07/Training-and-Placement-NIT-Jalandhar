@@ -1,6 +1,6 @@
 package in.nitj.tpo.controller;
 
-import static in.nitj.tpo.Utils.ControllerConstants.JOB_PORTAL;
+import static in.nitj.tpo.Utils.RouteConstants.JOB_PORTAL;
 
 import in.nitj.tpo.dto.JobOpeningDto;
 import in.nitj.tpo.entity.JobOpening;

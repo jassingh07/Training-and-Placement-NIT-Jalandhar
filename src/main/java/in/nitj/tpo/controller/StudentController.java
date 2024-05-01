@@ -1,6 +1,6 @@
 package in.nitj.tpo.controller;
 
-import static in.nitj.tpo.Utils.ControllerConstants.STUDENT_PORTAL;
+import static in.nitj.tpo.Utils.RouteConstants.STUDENT_PORTAL;
 
 import in.nitj.tpo.dto.StudentDto;
 import in.nitj.tpo.entity.Student;
