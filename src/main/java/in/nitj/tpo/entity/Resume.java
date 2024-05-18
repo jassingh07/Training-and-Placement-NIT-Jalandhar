@@ -22,7 +22,6 @@ public class Resume {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "roll_number")
-
   @JsonBackReference//preventing from serialization while coming from db, hence preventing cyclic references
   private Student student;
 

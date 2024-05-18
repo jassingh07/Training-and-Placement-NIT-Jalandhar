@@ -1,12 +1,9 @@
 package in.nitj.tpo.entity;
 
 import java.time.Instant;
+import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,4 +29,12 @@ public class JobOpening {
   private String position;
   @NotNull
   private Instant closingTime;
+
+  @ManyToMany
+  @JoinTable(
+          name = "job_application",
+          joinColumns = @JoinColumn(name = "job_id"),
+          inverseJoinColumns = @JoinColumn(name = "roll_number")
+  )
+  private List<Student> applicants;
 }

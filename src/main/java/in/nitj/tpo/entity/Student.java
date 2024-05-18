@@ -3,6 +3,7 @@ package in.nitj.tpo.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -55,4 +56,8 @@ public class Student{
 
   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Resume> resumes;
+
+  @ManyToMany(mappedBy = "applicants")
+  @JsonBackReference
+  private List<JobOpening> appliedJobs;
 }

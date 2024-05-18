@@ -4,14 +4,12 @@ import static in.nitj.tpo.Utils.RouteConstants.JOB_PORTAL;
 
 import in.nitj.tpo.dto.JobOpeningDto;
 import in.nitj.tpo.entity.JobOpening;
+import in.nitj.tpo.entity.Student;
 import in.nitj.tpo.service.JobService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +25,10 @@ public class JobOpeningController {
   @GetMapping
   public List<JobOpeningDto> getValidJobs(){
     return jobService.getValidJobs();
+  }
+
+  @GetMapping("/applicants/{jobId}")
+  public List<Student> getApplicants(@PathVariable Integer jobId) {
+    return jobService.getApplicants(jobId);
   }
 }

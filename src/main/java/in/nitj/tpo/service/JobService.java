@@ -7,6 +7,7 @@ import in.nitj.tpo.dto.DocumentDto;
 import in.nitj.tpo.dto.JobOpeningDto;
 import in.nitj.tpo.entity.JobDocument;
 import in.nitj.tpo.entity.JobOpening;
+import in.nitj.tpo.entity.Student;
 import in.nitj.tpo.repository.JobDocsRepository;
 import in.nitj.tpo.repository.JobRepository;
 import java.time.Instant;
@@ -14,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,15 @@ public class JobService {
     
     return savedOpening;
   }
+
+    @Transactional
+    public List<Student> getApplicants(Integer jobId) {
+        JobOpening jobOpening = jobRepository.findById(jobId)
+                .orElseThrow(() -> new EntityNotFoundException("Job opening not found"));
+
+        return jobOpening.getApplicants();
+    }
+
   public List<JobOpeningDto> getValidJobs(){
     return jobRepository.findByClosingTimeGreaterThanEqual(Instant.now())
             .stream()
