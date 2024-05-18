@@ -1,10 +1,8 @@
 package in.nitj.tpo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +17,17 @@ import lombok.Setter;
 @Entity
 public class Resume {
   @Id
-  private Integer rollNumber;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  @MapsId
-  @ManyToOne
-  @JoinColumn(name="roll_number", nullable = false)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "roll_number")
+
+  @JsonBackReference//preventing from serialization while coming from db, hence preventing cyclic references
   private Student student;
 
+  @NotBlank
   private String link;
+  @NotBlank
   private String file_name;
 }

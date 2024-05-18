@@ -35,7 +35,6 @@ public class Transformers {
   public static List<Resume> toResumeEntity(List<DocumentDto> resumeDtoList, Student student){
     return resumeDtoList.stream()
         .map(resume -> Resume.builder()
-            .rollNumber(student.getRollNumber())
             .file_name(resume.getFileName())
             .link(resume.getLink())
             .student(student)

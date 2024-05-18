@@ -1,9 +1,10 @@
 package in.nitj.tpo.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,7 @@ public class Student{
   private BigDecimal cgpa = BigDecimal.ZERO.setScale(2);
 
   private boolean activeBacklogs;
+
+  @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<Resume> resumes;
 }

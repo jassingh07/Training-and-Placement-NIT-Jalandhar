@@ -19,13 +19,9 @@ public class StudentService {
   private final ResumeRepository resumeRepository;
   public Student save(StudentDto request){
     Student student = toStudentEntity(request);
-    Student savedStudent = studentRepository.save(student);
-
-    List<Resume>  resumeList = toResumeEntity(request.getResumeDtoList(), savedStudent);
-    resumeList.stream()
-        .forEach(document -> resumeRepository.save(document));
-
-    return savedStudent;
+    List<Resume>  resumeList = toResumeEntity(request.getResumeDtoList(), student);
+    student.setResumes(resumeList);
+    return studentRepository.save(student);
   }
   public List<Student> findAll(){
     return studentRepository.findAll();

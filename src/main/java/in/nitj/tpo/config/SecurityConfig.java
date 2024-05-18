@@ -64,12 +64,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Scope("prototype")
-    @Bean
-    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
-        return new MvcRequestMatcher.Builder(introspector);
-    }
-
 }
 
 // CORS(Cross-origin resource sharing) is just to avoid if you run javascript across different domains like if you execute JS on http://testpage.com and access http://anotherpage.com
