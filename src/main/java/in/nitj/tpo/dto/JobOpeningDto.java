@@ -1,5 +1,6 @@
 package in.nitj.tpo.dto;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import lombok.Builder;
@@ -10,9 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JobOpeningDto {
-  private Integer jobId;
   private String companyName;
   private String position;
   private List<DocumentDto> jobDocumentDtoList;
   private Instant closingTime;
+  private BigDecimal tenthPercentage;
+  private BigDecimal twelvePercentage;
+  private BigDecimal cgpa;
+  private Integer maxActiveBacklogs;
 }

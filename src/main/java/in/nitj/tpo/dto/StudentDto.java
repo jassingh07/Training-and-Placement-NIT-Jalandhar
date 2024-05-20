@@ -33,6 +33,6 @@ public class StudentDto {
   private BigDecimal tenthPercentage;
   private BigDecimal twelvePercentage;
   private BigDecimal cgpa;
-  private boolean activeBacklogs;
+  private Integer activeBacklogs;
   private List<DocumentDto> resumeDtoList;
 }

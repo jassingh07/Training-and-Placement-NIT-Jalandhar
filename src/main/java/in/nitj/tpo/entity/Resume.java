@@ -28,5 +28,5 @@ public class Resume {
   @NotBlank
   private String link;
   @NotBlank
-  private String file_name;
+  private String fileName;
 }

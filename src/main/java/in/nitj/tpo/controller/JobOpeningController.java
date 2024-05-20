@@ -23,7 +23,7 @@ public class JobOpeningController {
   }
 
   @GetMapping
-  public List<JobOpeningDto> getValidJobs(){
+  public List<JobOpening> getValidJobs(){
     return jobService.getValidJobs();
   }
 

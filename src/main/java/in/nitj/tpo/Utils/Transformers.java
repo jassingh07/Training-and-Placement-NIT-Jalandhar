@@ -5,21 +5,25 @@ import in.nitj.tpo.dto.JobOpeningDto;
 import in.nitj.tpo.dto.StudentDto;
 import in.nitj.tpo.entity.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Transformers {
-  public static JobOpening toJobOpeningEntity(JobOpeningDto jobOpeningDto){
+  public static JobOpening toJobOpeningEntity(JobOpeningDto jobOpeningDto) {
     return JobOpening.builder()
-    .jobId(jobOpeningDto.getJobId())
-        .companyName(jobOpeningDto.getCompanyName())
-        .position(jobOpeningDto.getPosition())
-        .closingTime(jobOpeningDto.getClosingTime())
-        .build();
+            .companyName(jobOpeningDto.getCompanyName())
+            .position(jobOpeningDto.getPosition())
+            .closingTime(jobOpeningDto.getClosingTime())
+            .tenthPercentage(jobOpeningDto.getTenthPercentage() != null ? jobOpeningDto.getTenthPercentage() : BigDecimal.ZERO.setScale(2))
+            .twelvePercentage(jobOpeningDto.getTwelvePercentage() != null ? jobOpeningDto.getTwelvePercentage() : BigDecimal.ZERO.setScale(2))
+            .cgpa(jobOpeningDto.getCgpa() != null ? jobOpeningDto.getCgpa() : BigDecimal.ZERO.setScale(2))
+            .maxActiveBacklogs(jobOpeningDto.getMaxActiveBacklogs() != null ? jobOpeningDto.getMaxActiveBacklogs() : 10)
+            .build();
   }
   public static Student toStudentEntity(StudentDto studentDto){
     return Student.builder()
-        .activeBacklogs(studentDto.isActiveBacklogs())
+        .activeBacklogs(studentDto.getActiveBacklogs())
         .branch(studentDto.getBranch())
         .cgpa(studentDto.getCgpa())
         .firstName(studentDto.getFirstName())
@@ -35,7 +39,7 @@ public class Transformers {
   public static List<Resume> toResumeEntity(List<DocumentDto> resumeDtoList, Student student){
     return resumeDtoList.stream()
         .map(resume -> Resume.builder()
-            .file_name(resume.getFileName())
+            .fileName(resume.getFileName())
             .link(resume.getLink())
             .student(student)
             .build())
@@ -44,7 +48,6 @@ public class Transformers {
   public static List<JobDocument> toJobDocumentEntity(List<DocumentDto> jobDocumentDtoList, JobOpening savedOpening){
     return jobDocumentDtoList.stream()
         .map(jdl -> JobDocument.builder()
-            .jobId(savedOpening.getJobId())
             .fileName(jdl.getFileName())
             .link(jdl.getLink())
             .jobOpening(savedOpening)

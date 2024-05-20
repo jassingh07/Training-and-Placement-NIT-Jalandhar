@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -52,10 +51,10 @@ public class Student{
   @NotNull
   private BigDecimal cgpa = BigDecimal.ZERO.setScale(2);
 
-  private boolean activeBacklogs;
+  private Integer activeBacklogs;
 
   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private List<Resume> resumes;
+  private List<Resume> resumeDtoList;
 
   @ManyToMany(mappedBy = "applicants")
   @JsonBackReference

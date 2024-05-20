@@ -1,10 +1,8 @@
 package in.nitj.tpo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,14 +15,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class JobDocument{
+public class JobDocument {
   @Id
-  private Integer jobId;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-  @MapsId
-  @ManyToOne
-  @JoinColumn(name = "job_id", nullable = false)
-  private JobOpening jobOpening;
+  @NotBlank
   private String link;
+
+  @NotBlank
   private String fileName;
+
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "job_id")
+  private JobOpening jobOpening;
 }

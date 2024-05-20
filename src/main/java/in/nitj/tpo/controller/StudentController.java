@@ -22,12 +22,11 @@ public class StudentController {
     return studentService.save(request);
   }
   @GetMapping
-  public List<Student> getAllStudents(){
-    return studentService.findAll();
+  public Student getStudent(){
+    return studentService.findLoggedInStudentDetails();
   }
   @PostMapping("/apply")
   public ResponseEntity<String> applyForJob(@RequestBody JobApplyDto jobApplyDto) {
-    studentService.applyForJob(jobApplyDto.getJobId(), jobApplyDto.getRollNumber());
-    return ResponseEntity.ok("Application successful");
+    return studentService.applyForJob(jobApplyDto.getJobId(), jobApplyDto.getRollNumber());
   }
 }

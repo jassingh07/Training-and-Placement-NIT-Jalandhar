@@ -27,14 +27,10 @@ public class JobService {
   private final JobDocsRepository jobDocsRepository;
   public JobOpening save(JobOpeningDto jobOpeningDto){
     JobOpening jobOpening = toJobOpeningEntity(jobOpeningDto);
-    JobOpening savedOpening =  jobRepository.save(jobOpening);
-    //first save referenced entity, to take a reference :)
+    List<JobDocument> jobDocumentList = toJobDocumentEntity(jobOpeningDto.getJobDocumentDtoList(), jobOpening);
 
-    List<JobDocument> jobDocumentList = toJobDocumentEntity(jobOpeningDto.getJobDocumentDtoList(), savedOpening);
-    jobDocumentList
-        .forEach(jobDocsRepository::save);
-    
-    return savedOpening;
+    jobOpening.setJobDocuments(jobDocumentList);
+    return jobRepository.save(jobOpening);
   }
 
     @Transactional
@@ -45,26 +41,7 @@ public class JobService {
         return jobOpening.getApplicants();
     }
 
-  public List<JobOpeningDto> getValidJobs(){
-    return jobRepository.findByClosingTimeGreaterThanEqual(Instant.now())
-            .stream()
-            .map(job -> JobOpeningDto.builder()
-                    .jobId(job.getJobId())
-                    .companyName(job.getCompanyName())
-                    .closingTime(job.getClosingTime())
-                    .position(job.getPosition())
-                    .jobDocumentDtoList(
-                            jobDocsRepository.findAllById(Collections.singletonList(job.getJobId()))
-                            .stream()
-                            .map(doc -> DocumentDto.builder()
-                                    .fileName(doc.getFileName())
-                                    .link(doc.getLink())
-                                    .build()
-                            )
-                            .collect(Collectors.toList())
-                    )
-                    .build()
-            )
-            .collect(Collectors.toList());
+  public List<JobOpening> getValidJobs(){
+    return jobRepository.findByClosingTimeGreaterThanEqual(Instant.now());
   }
 }
