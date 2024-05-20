@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private final Integer TOKEN_EXP_TIME = 3 * 24 * 60 * 60;//in milliseconds
+    private final Integer TOKEN_EXP_TIME = 3 * 24 * 60 * 60 * 1000;//in milliseconds
     private final String SECRET_KEY = "f640efa2667bd91da9684da95c661d0947bbddf1940fda22e918e475d687f0da";
     //TODO: put in vault
     public String extractOfficialEmail(String token){
